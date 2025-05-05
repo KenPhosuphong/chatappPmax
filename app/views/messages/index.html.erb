@@ -1,9 +1,18 @@
 <div id="messages">
-  <%= turbo_frame_tag "room-messages" do %>
+<%= turbo_frame_tag "room-messages" do %>
   <% if @messages.any? && @messages.first.room.present? %>
-    <%= @messages.first.room.name %>
-    <% else %>
-    <p>no message</p>
+    <div class="room-header">
+      <h3><%= @room.name %></h3>
+      <div class="room-Users">
+        <small><b>Users : </b> 
+          <% @room.users.each do |user| %>
+          <%= user.username %> |
+        <% end %>
+        </small>
+      </div>
+    </div>
+  <% else %>
+    <p>No messages</p>
   <% end %>
     <div id="message-list">
       <% @messages.each do |message| %>
@@ -15,3 +24,5 @@
     <%= turbo_stream_from @room %>
   <% end %>
 </div>
+
+
